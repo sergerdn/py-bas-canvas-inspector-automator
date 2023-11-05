@@ -9,14 +9,14 @@ poetry_upgrade:
 	poetry show --outdated
 
 lint_fix:
-	poetry run black cmd_worker.py py_bas_canvas_inspector_automator
-	poetry run isort cmd_worker.py py_bas_canvas_inspector_automator
+	poetry run black cmd_worker.py py_bas_canvas_inspector_automator/ tests/
+	poetry run isort cmd_worker.py py_bas_canvas_inspector_automator/ tests/
 
 lint:
 	poetry check
-	poetry run mypy cmd_worker.py py_bas_canvas_inspector_automator  || echo ""
-	poetry run flake8 cmd_worker.py py_bas_canvas_inspector_automator || echo ""
-	pylint --load-plugins pylint_pydantic cmd_worker.py py_bas_canvas_inspector_automator || echo ""
+	poetry run mypy cmd_worker.py py_bas_canvas_inspector_automator/ tests/ || echo ""
+	poetry run flake8 cmd_worker.py py_bas_canvas_inspector_automator/ tests/ || echo ""
+	pylint --load-plugins pylint_pydantic cmd_worker.py py_bas_canvas_inspector_automator/ tests/ || echo ""
 
 run_worker:
 	rm ./docs/screenshots/*.png || echo ""

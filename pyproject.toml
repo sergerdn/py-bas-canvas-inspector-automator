@@ -15,6 +15,7 @@ filelock = "^3.13.1"
 psutil = "^5.9.6"
 types-psutil = "^5.9.5.17"
 mimesis = "^11.1.0"
+pytesseract = "^0.3.10"
 
 [tool.poetry.group.dev.dependencies]
 pytest-playwright = "^0.4.3"
@@ -26,6 +27,7 @@ mypy = "^1.6.1"
 flake8 = "^6.1.0"
 pylint = "^3.0.2"
 pylint-pydantic = "^0.3.0"
+types-pillow = "^10.1.0.0"
 
 
 [tool.black]
@@ -45,6 +47,8 @@ disallow_untyped_calls = true
 
 [tool.pylint]
 max-line-length = 120
+min-similarity-lines = 8
+ignore-imports = true
 
 [build-system]
 requires = ["poetry-core"]

@@ -28,7 +28,7 @@ The platforms listed below have either been implemented or are targeted for futu
 
 - [x] Google: https://www.google.com/
 - [x] Vinted: https://www.vinted.com/
-- [ ] Outlook: https://outlook.live.com/
+- [x] Outlook: https://outlook.live.com/
 - [ ] Twitter: https://twitter.com/
 - [ ] Reddit: https://www.reddit.com/
 - [ ] LinkedIn: https://www.linkedin.com/
@@ -58,6 +58,7 @@ The standard workflow with BAS is outlined in the following steps:
 
 - `Python 3.11` or later
 - [Poetry](https://python-poetry.org/) for dependency management
+- [Tesseract OCR](https://github.com/UB-Mannheim/tesseract/wiki#tesseract-installer-for-windows)
 - A solid understanding of the purpose and mechanisms behind canvas fingerprinting and automation
 
 ## Installation
