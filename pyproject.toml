@@ -1,0 +1,51 @@
+[tool.poetry]
+name = "py-bas-canvas-inspector-automator"
+version = "0.1.0"
+description = ""
+authors = ["sergerdn <64213648+sergerdn@users.noreply.github.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+playwright = { extras = ["chromium"], version = "^1.39.0" }
+httpx = { extras = ["socks"], version = "^0.25.0" }
+pydantic = "^2.4.2"
+python-dotenv = "^1.0.0"
+filelock = "^3.13.1"
+psutil = "^5.9.6"
+types-psutil = "^5.9.5.17"
+mimesis = "^11.1.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest-playwright = "^0.4.3"
+pytest = "^7.4.3"
+commitizen = "^3.12.0"
+pywinauto = "^0.6.8"
+black = "^23.10.1"
+mypy = "^1.6.1"
+flake8 = "^6.1.0"
+pylint = "^3.0.2"
+pylint-pydantic = "^0.3.0"
+
+
+[tool.black]
+line-length = 120
+
+[tool.isort]
+line_length = 120
+py_version = 311
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_untyped_calls = true
+#exclude = "tests/contrib"
+
+[tool.pylint]
+max-line-length = 120
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
