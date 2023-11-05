@@ -1,0 +1,1 @@
+# bas-canvas-inspector-automator
