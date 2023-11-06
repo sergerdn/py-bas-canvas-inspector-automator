@@ -58,7 +58,8 @@ The standard workflow with BAS is outlined in the following steps:
 
 - `Python 3.11` or later
 - [Poetry](https://python-poetry.org/) for dependency management
-- [Tesseract OCR](https://github.com/UB-Mannheim/tesseract/wiki#tesseract-installer-for-windows)
+- [Tesseract OCR](https://github.com/UB-Mannheim/tesseract/wiki#tesseract-installer-for-windows) for reliable
+  information retrieval from webpage images.
 - A solid understanding of the purpose and mechanisms behind canvas fingerprinting and automation
 
 ## Installation
