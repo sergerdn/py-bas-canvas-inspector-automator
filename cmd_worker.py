@@ -11,6 +11,10 @@ ABS_PATH = os.path.dirname(os.path.abspath(__file__))
 SCREENSHOT_DIR_PATH = os.path.join(ABS_PATH, "docs", "screenshots")
 
 
+class BrowserNotRunning(Exception):
+    """Exception raised when the browser is not running."""
+
+
 async def main() -> None:
     """
     Run the automator and grab the canvas.
@@ -20,6 +24,9 @@ async def main() -> None:
         os.makedirs(SCREENSHOT_DIR_PATH)
 
     remote_debugging_port = find_proc()
+    if remote_debugging_port == 0:
+        raise BrowserNotRunning("Browser is not running")
+
     async with Automator(
         remote_debugging_port=remote_debugging_port, screenshot_dir_path=SCREENSHOT_DIR_PATH
     ) as automator:

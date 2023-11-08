@@ -26,14 +26,16 @@ The automator is purpose-built to capture canvas fingerprint data during the acc
 
 The platforms listed below have either been implemented or are targeted for future implementation:
 
-- [x] Google: https://www.google.com/
-- [x] Vinted: https://www.vinted.com/
-- [x] Outlook: https://outlook.live.com/
-- [ ] Twitter: https://twitter.com/
-- [ ] Reddit: https://www.reddit.com/
-- [ ] LinkedIn: https://www.linkedin.com/
-- [ ] Twitch: https://www.twitch.tv/
-- [ ] TikTok: https://www.tiktok.com/
+- [x] Google(https://www.google.com/)
+- [x] Vinted(https://www.vinted.com/)
+- [x] Outlook(https://outlook.live.com/)
+- [-] EpicGames(https://www.epicgames.com/), partially implemented, but not currently usable as it depends on an update
+  to CanvasInspector
+- [ ] Twitter(https://twitter.com/)
+- [ ] Reddit (https://www.reddit.com/)
+- [ ] LinkedIn(https://www.linkedin.com/)
+- [ ] Twitch(https://www.twitch.tv/)
+- [ ] TikTok(https://www.tiktok.com/)
 
 If you need to add support for a website or have suggestions, feel free to open
 an [issue](https://github.com/sergerdn/py-bas-canvas-inspector-automator/issues/new) or create
