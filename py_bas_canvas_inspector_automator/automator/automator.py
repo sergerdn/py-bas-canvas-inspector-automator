@@ -486,6 +486,68 @@ class Automator:  # pylint: disable=too-many-instance-attributes
         logger.warning("Outlook account creation failed.")
         return False
 
+    async def _grab_canvas_epicgames(self) -> bool:
+        """
+        Automates the process of creating a new Epic Games account.
+
+        :return: True if the Epic Games account creation process is completed successfully, False otherwise.
+        """
+
+        logger.info("Initiating EpicGames account creation automation...")
+
+        # Generate a new person with random attributes using a helper function
+        person = new_person()
+        email = person.email(domains=["gmail.com"])
+
+        logger.info("Navigating to the Epic Games main page...")
+        await self.page.goto("https://store.epicgames.com/en-US/", wait_until="networkidle", timeout=self.timeout)
+        logger.info("Main page loaded.")
+
+        logger.info("Proceeding to the Epic Games sign-up page...")
+        await self.page.goto("https://www.epicgames.com/id/login?lang=en-US")
+        logger.info("Sign-up page loaded.")
+
+        logger.info("Filling in the registration form with the generated email...")
+        email_input = self.page.locator("//input[@id='email']")
+        await email_input.fill(email)
+        await asyncio.sleep(5)
+        await self.page.wait_for_load_state(timeout=self.timeout)
+
+        logger.info("Filled in the registration form with the email.")
+
+        while True:
+            await asyncio.sleep(10)
+            logger.info("Sending the Enter key to submit the registration form...")
+            await email_input.focus()
+            await self.page.keyboard.press("Enter")
+            await asyncio.sleep(10)
+            await self.page.wait_for_load_state("networkidle", timeout=self.timeout)
+            await asyncio.sleep(10)
+            await self.page.keyboard.press("PageUp")
+            await asyncio.sleep(10)
+            logger.info("Enter key submitted.")
+
+            logger.debug("Checking for captcha challenge via OCR ...")
+            screenshot_epicgames_captcha = await self._save_temp_screenshot("epicgames_captcha")
+            text = ocr_image(screenshot_epicgames_captcha, normalize_text=True)
+            logger.debug("OCR result: %s", text)
+
+            if "Please complete a security check to continue" in text or "Session ID: " in text or "IP Address" in text:
+                logger.error("Captcha detected")
+                raise BadProxyIPError("Captcha detected, restart CanvasInspector with a new proxy IP.")
+
+            logger.info("Captcha not detected...")
+
+            current_url = self.page.url
+            if current_url.startswith("https://www.epicgames.com/id/register/date-of-birth"):
+                logger.info("Captcha not detected, proceeding ...")
+                break
+
+            logger.info("URL is not changed, retrying ...")
+
+        logger.info("EpicGames account successfully created.")
+        return True
+
     async def grab_canvas(self) -> bool:
         """
         Orchestrates the process of capturing canvas fingerprint data from multiple websites.
@@ -503,6 +565,22 @@ class Automator:  # pylint: disable=too-many-instance-attributes
         await self._check_prerequisites()
         # Initialize a list to store the success status for each website.
         capture_results = []
+
+        # Clean the environment and capture canvas for Gmail.
+        await self._clean_up()
+        canvas_capture_success = False
+
+        try:
+            # Attempt to capture canvas data during Epic Games account creation
+            canvas_capture_success = await self._grab_canvas_epicgames()
+        except BadProxyIPError:
+            # Handle BadProxyIPError, typically indicating issues with the proxy IP
+            # Notify the CanvasInspector developer to address and fix the problem
+            # to enable support for Epic Games in the future.
+            pass
+
+        capture_results.append(canvas_capture_success)
+        await self._save_screenshot("epicgames")
 
         # Clean the environment and capture canvas for Gmail.
         await self._clean_up()
