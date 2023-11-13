@@ -27,7 +27,7 @@ mypy = "^1.6.1"
 flake8 = "^6.1.0"
 pylint = "^3.0.2"
 pylint-pydantic = "^0.3.0"
-types-pillow = "^10.1.0.1"
+types-pillow = "^10.1.0.2"
 
 
 [tool.black]
