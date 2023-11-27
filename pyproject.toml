@@ -8,7 +8,7 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.11"
 playwright = { extras = ["chromium"], version = "^1.40.0" }
-httpx = { extras = ["socks"], version = "^0.25.0" }
+httpx = { extras = ["socks"], version = "^0.25.2" }
 pydantic = "^2.5.2"
 python-dotenv = "^1.0.0"
 filelock = "^3.13.1"
