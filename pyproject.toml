@@ -12,7 +12,7 @@ httpx = { extras = ["socks"], version = "^0.25.0" }
 pydantic = "^2.5.2"
 python-dotenv = "^1.0.0"
 filelock = "^3.13.1"
-psutil = "^5.9.6"
+psutil = "^5.9.7"
 types-psutil = "^5.9.5.17"
 mimesis = "^11.1.0"
 pytesseract = "^0.3.10"
