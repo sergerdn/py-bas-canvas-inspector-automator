@@ -20,7 +20,7 @@ pytesseract = "^0.3.10"
 [tool.poetry.group.dev.dependencies]
 pytest-playwright = "^0.4.3"
 pytest = "^7.4.3"
-commitizen = "^3.12.0"
+commitizen = "^3.14.0"
 pywinauto = "^0.6.8"
 black = "^23.11.0"
 mypy = "^1.7.0"
