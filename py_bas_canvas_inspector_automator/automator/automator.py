@@ -4,6 +4,7 @@ import asyncio
 import json
 import os
 import random
+import re
 import shutil
 import tempfile
 from typing import Any, Dict
@@ -388,7 +389,11 @@ class Automator:  # pylint: disable=too-many-instance-attributes
         # Generate a new person with random attributes using a helper function
         person = new_person()
         first_name = person.first_name(gender=Gender.MALE)
+        first_name = re.sub(r"[^A-Za-z\s]", "", first_name.strip())
+
         last_name = person.last_name(gender=Gender.MALE)
+        last_name = re.sub(r"[^A-Za-z\s]", "", last_name.strip())
+
         username = f"{person.username()}_{first_name.lower()}_{last_name.lower()}".replace("_", ".")[:30]
         password = f"{person.password(length=15)}{random.randint(0, 9)}"
 
@@ -414,51 +419,53 @@ class Automator:  # pylint: disable=too-many-instance-attributes
 
         # Proceed to the Sign-in page
         logger.info("Proceeding to the English Sign-up page...")
-        await self.page.goto(
-            "https://signup.live.com/signup?lic=1&mkt=en-US", wait_until="networkidle", timeout=self.timeout
-        )
+        await self.page.goto("https://signup.live.com/signup?lic=1&mkt=en-US")
         logger.info("English Sign-up page loaded.")
 
         logger.info("Click on 'Create one' button...")
-        await self.page.click("//a[@id='liveSwitch' and contains(text(), 'Get a new email address')]")
+        await self.page.click("//span[@data-testid='liveSwitch']")
         await self.page.wait_for_load_state(timeout=self.timeout)
         logger.info("Clicked on 'Create one' button.")
 
         logger.info("Filling in the registration form with username...")
-        await self.page.fill("//input[@id='MemberName']", username)
-        await self.page.click("//input[@type='submit' and @value='Next']")
+        await self.page.fill("//input[@id='usernameInput']", username)
+        await self.page.click("//button[@type='submit' and @id='nextButton']")
         logger.info("Filled in the registration form with username.")
 
         logger.info("Filling in the registration form with password...")
-        await self.page.fill("//input[@id='PasswordInput']", password)
-        await self.page.click("//input[@type='submit' and @id='iSignupAction']")
+        await self.page.fill("//input[@data-testid='Password']", password)
+        await self.page.click("//button[@type='submit' and @id='nextButton']")
         await self.page.wait_for_load_state(timeout=self.timeout)
         logger.info("Filled in the registration form with password.")
 
         logger.info("Filling in the registration form with first name and last name...")
-        await self.page.fill("//input[@id='FirstName']", first_name)
-        await self.page.fill("//input[@id='LastName']", last_name)
-        await self.page.click("//input[@type='submit' and @id='iSignupAction']")
+        await self.page.click("//input[@data-testid='firstNameInput']")
+        await self.page.fill("//input[@data-testid='firstNameInput']", first_name)
+        await self.page.click("//input[@data-testid='lastNameInput']")
+        await self.page.fill("//input[@data-testid='lastNameInput']", last_name)
+        await self.page.click("//button[@type='submit' and @id='nextButton']")
         await self.page.wait_for_load_state(timeout=self.timeout)
         logger.info("Filled in the registration form with first name and last name.")
 
         # Set the birthdate information
         logger.info("Setting birthdate information...")
-        await self.page.select_option("#BirthMonth", f"{random.randint(1, 12)}")
-        await self.page.select_option("#BirthDay", f"{random.randint(1, 28)}")
-        await self.page.fill("#BirthYear", f"{random.randint(1970, 1985)}")
-        await self.page.click("//input[@type='submit' and @id='iSignupAction']")
+        await self.page.select_option("//select[@data-testid='BirthMonth']", f"{random.randint(1, 12)}")
+        await self.page.select_option("//select[@data-testid='BirthDay']", f"{random.randint(1, 28)}")
+        await self.page.fill("//input[@data-testid='BirthYear']", f"{random.randint(1970, 1985)}")
+        await self.page.click("//button[@type='submit' and @id='nextButton']")
         await self.page.wait_for_load_state(timeout=self.timeout)
         logger.info("Birthdate information set.")
-
-        await asyncio.sleep(30)
 
         logger.debug("Checking for captcha challenge via OCR ...")
         # Loop until we are sure there's no captcha.
         while True:
+            if self.page.url.startswith("https://privacynotice.account.microsoft.com/notice?"):
+                break
             await asyncio.sleep(30)
             captcha_not_detected_checks = []
             for _ in range(3):
+                if self.page.url.startswith("https://privacynotice.account.microsoft.com/notice?"):
+                    break
                 await asyncio.sleep(5)
 
                 screenshot_outlook_captcha = await self._save_temp_screenshot("outlook_captcha")
@@ -466,7 +473,9 @@ class Automator:  # pylint: disable=too-many-instance-attributes
                 logger.debug("OCR result: %s", text)
 
                 # Check for specific captcha texts.
-                if "Please solve the puzzle" in text or "Use the arrows to " in text:
+                if "Use the arrows to " in text \
+                        or "Solve a puzzle" in text \
+                        or "Help us beat the robots " in text:
                     logger.info("Captcha solving in progress, waiting ...")
                     # Captcha is detected
                     captcha_not_detected_checks.append(False)
@@ -566,33 +575,33 @@ class Automator:  # pylint: disable=too-many-instance-attributes
         # Initialize a list to store the success status for each website.
         capture_results = []
 
+        # Clean the environment and capture canvas for Epic Games.
+        await self._clean_up()
+        # canvas_capture_success = False
+
+        # try:
+        #     # Attempt to capture canvas data during Epic Games account creation
+        #     canvas_capture_success = await self._grab_canvas_epicgames()
+        # except BadProxyIPError:
+        #     # Handle BadProxyIPError, typically indicating issues with the proxy IP
+        #     # Notify the CanvasInspector developer to address and fix the problem
+        #     # to enable support for Epic Games in the future.
+        #     pass
+        #
+        # capture_results.append(canvas_capture_success)
+        # await self._save_screenshot("epicgames")
+
         # Clean the environment and capture canvas for Gmail.
-        await self._clean_up()
-        canvas_capture_success = False
-
-        try:
-            # Attempt to capture canvas data during Epic Games account creation
-            canvas_capture_success = await self._grab_canvas_epicgames()
-        except BadProxyIPError:
-            # Handle BadProxyIPError, typically indicating issues with the proxy IP
-            # Notify the CanvasInspector developer to address and fix the problem
-            # to enable support for Epic Games in the future.
-            pass
-
-        capture_results.append(canvas_capture_success)
-        await self._save_screenshot("epicgames")
-
-        # Clean the environment and capture canvas for Gmail.
-        await self._clean_up()
-        gmail_capture_success = await self._grab_canvas_gmail()
-        capture_results.append(gmail_capture_success)
-        await self._save_screenshot("gmail")
-
-        # Clean the environment and capture canvas for Vinted.
-        await self._clean_up()
-        vinted_capture_success = await self._grab_canvas_vinted()
-        capture_results.append(vinted_capture_success)
-        await self._save_screenshot("vinted")
+        # await self._clean_up()
+        # gmail_capture_success = await self._grab_canvas_gmail()
+        # capture_results.append(gmail_capture_success)
+        # await self._save_screenshot("gmail")
+        #
+        # # Clean the environment and capture canvas for Vinted.
+        # await self._clean_up()
+        # vinted_capture_success = await self._grab_canvas_vinted()
+        # capture_results.append(vinted_capture_success)
+        # await self._save_screenshot("vinted")
 
         # Clean the environment and capture canvas for Outlook.
         await self._clean_up()
