@@ -1,4 +1,5 @@
 """Ocr module."""
+
 import os
 
 import pytesseract  # type: ignore

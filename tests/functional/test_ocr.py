@@ -1,4 +1,5 @@
 """Test the OCR functionality."""
+
 from py_bas_canvas_inspector_automator.ocr import ocr_image
 
 

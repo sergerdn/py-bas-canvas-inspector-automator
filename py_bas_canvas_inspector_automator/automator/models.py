@@ -1,4 +1,5 @@
 """Models for the automator."""
+
 from typing import Annotated
 
 from pydantic import BaseModel, UrlConstraints

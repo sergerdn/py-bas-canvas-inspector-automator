@@ -1,4 +1,5 @@
 """Initialize the tests package."""
+
 import os
 import platform
 

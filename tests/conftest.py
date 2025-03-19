@@ -1,4 +1,5 @@
 """Fixtures for the tests."""
+
 import os
 
 import pytesseract  # type: ignore

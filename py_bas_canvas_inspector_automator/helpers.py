@@ -1,4 +1,5 @@
 """Helper functions for the Canvas Inspector Automator."""
+
 import os
 
 import psutil
@@ -37,20 +38,21 @@ def find_proc() -> int:
                     break
             print(found_proc)
 
-            for child in proc.children(recursive=False):
-                # Check if the child process is the browser process
-                if child.name() != BROWSER_PROC_NAME:
-                    continue
-                cmd_line = child.cmdline()
-
-                for line in cmd_line:
-                    line = line.strip()
-
-                    # Check if the command line argument specifies the user data directory
-                    if not line.startswith("--remote-debugging-port="):
+            if found_proc:
+                for child in proc.children(recursive=False):
+                    # Check if the child process is the browser process
+                    if child.name() != BROWSER_PROC_NAME:
                         continue
-                    _, _remote_debugging_port = line.split("=")
-                    return int(_remote_debugging_port)  # Return the port number
+                    cmd_line = child.cmdline()
+
+                    for line in cmd_line:
+                        line = line.strip()
+
+                        # Check if the command line argument specifies the user data directory
+                        if not line.startswith("--remote-debugging-port="):
+                            continue
+                        _, _remote_debugging_port = line.split("=")
+                        return int(_remote_debugging_port)  # Return the port number
 
     return 0  # Return 0 if no matching process is found
 

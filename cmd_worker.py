@@ -1,4 +1,5 @@
-""" This is a main worker script to run the automator. """
+"""This is a main worker script to run the automator."""
+
 import asyncio
 import logging
 import os
