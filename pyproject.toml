@@ -7,27 +7,27 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.11"
-playwright = { extras = ["chromium"], version = "^1.40.0" }
-httpx = { extras = ["socks"], version = "^0.27.0" }
-pydantic = "^2.5.2"
-python-dotenv = "^1.0.0"
-filelock = "^3.13.1"
-psutil = "^5.9.6"
-types-psutil = "^5.9.5.17"
-mimesis = "^11.1.0"
-pytesseract = "^0.3.10"
+playwright = { extras = ["chromium"], version = "^1.51.0" }
+httpx = { extras = ["socks"], version = "^0.28.1" }
+pydantic = "^2.10.6"
+python-dotenv = "^1.0.1"
+filelock = "^3.18.0"
+psutil = "^7.0.0"
+types-psutil = "^7.0.0.20250218"
+mimesis = "^18.0.0"
+pytesseract = "^0.3.13"
 
 [tool.poetry.group.dev.dependencies]
-pytest-playwright = "^0.4.3"
-pytest = "^7.4.3"
-commitizen = "^3.12.0"
-pywinauto = "^0.6.8"
-black = "^23.11.0"
-mypy = "^1.7.0"
-flake8 = "^6.1.0"
-pylint = "^3.0.2"
-pylint-pydantic = "^0.3.0"
-types-pillow = "^10.1.0.2"
+pytest-playwright = "^0.7.0"
+pytest = "^8.3.5"
+commitizen = "^4.4.1"
+pywinauto = "^0.6.9"
+black = "^25.1.0"
+mypy = "^1.15.0"
+flake8 = "^7.1.2"
+pylint = "^3.3.5"
+pylint-pydantic = "^0.3.5"
+types-pillow = "^10.2.0.20240822"
 
 
 [tool.black]

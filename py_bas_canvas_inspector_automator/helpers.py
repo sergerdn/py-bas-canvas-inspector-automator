@@ -24,6 +24,9 @@ def find_proc() -> int:
         # Check if the process is a Worker.exe process
         if name == WORKER_PROC_NAME:
             parent_proc = proc.parent()  # Get the parent process (browser process)
+            if not parent_proc:
+                continue
+
             if parent_proc.name() != "FastExecuteScript.exe":
                 continue
 
