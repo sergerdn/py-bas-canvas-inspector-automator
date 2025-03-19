@@ -1,3 +1,4 @@
+.PHONY: tests
 
 poetry_install:
 	poetry self add poetry-plugin-up@latest
@@ -22,3 +23,6 @@ run_worker:
 	rm ./docs/screenshots/*.png || echo ""
 	poetry run python cmd_worker.py
 	git add ./docs/screenshots/*
+
+tests:
+	poetry run pytest tests/

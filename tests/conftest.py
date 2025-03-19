@@ -17,9 +17,9 @@ def _set_tesseract_installed_path() -> None:
     paths = ["D:\\Program Files\\Tesseract-OCR", "C:\\Program Files\\Tesseract-OCR"]
 
     for path in paths:
-        if os.path.exists(path):
+        if os.path.exists(path) and os.path.isdir(path):
             tesseract_cmd = os.path.join(path, "tesseract.exe")
-            if os.path.exists(tesseract_cmd):
+            if os.path.exists(tesseract_cmd) and os.path.isfile(tesseract_cmd):
                 pytesseract.pytesseract.tesseract_cmd = tesseract_cmd
                 return
 
