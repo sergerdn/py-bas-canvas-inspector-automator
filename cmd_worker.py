@@ -17,9 +17,7 @@ class BrowserNotRunning(Exception):
 
 
 async def main() -> None:
-    """
-    Run the automator and grab the canvas.
-    """
+    """Run the automator and grab the canvas."""
 
     if not os.path.exists(SCREENSHOT_DIR_PATH):
         os.makedirs(SCREENSHOT_DIR_PATH)

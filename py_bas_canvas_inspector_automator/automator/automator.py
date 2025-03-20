@@ -1,4 +1,5 @@
-"""This module provides functionality to automate browser interactions using the Playwright library."""
+"""This module provides functionality to automate browser interactions using the
+Playwright library."""
 
 import asyncio
 import json
@@ -24,24 +25,26 @@ logger = get_logger()
 
 
 class BrowserWebSocketConnectionError(Exception):
-    """
-    Exception raised for errors in the WebSocket connection to the browser's remote debugging port.
-    """
+    """Exception raised for errors in the WebSocket connection to the browser's remote
+    debugging port."""
 
 
 class BadProxyIPError(Exception):
-    """
-    Exception raised when a bad proxy IP is detected, often indicated by the presence of a captcha.
-    """
+    """Exception raised when a bad proxy IP is detected, often indicated by the presence
+    of a captcha."""
 
 
 def _url_to_ws_endpoint(endpoint_url: str) -> str:
-    """
-    Convert an HTTP endpoint URL to a WebSocket endpoint URL.
+    """Convert an HTTP endpoint URL to a WebSocket endpoint URL.
 
-    :param endpoint_url: The HTTP endpoint URL.
-    :return: The WebSocket endpoint URL.
-    :raises BrowserWsConnectError: If unable to connect to the HTTP endpoint URL.
+    Args:
+        endpoint_url: The HTTP endpoint URL.
+
+    Returns:
+        The WebSocket endpoint URL.
+
+    Raises:
+        BrowserWsConnectError: If unable to connect to the HTTP endpoint URL.
     """
 
     if endpoint_url.startswith("ws"):
@@ -71,19 +74,20 @@ def _url_to_ws_endpoint(endpoint_url: str) -> str:
 
 
 def new_person() -> Person:
-    """
-    Create a new person object with random attributes.
-    :return: A mimesis Person object with random locale-specific data.
+    """Create a new person object with random attributes.
+
+    Returns:
+        A mimesis Person object with random locale-specific data.
     """
     person = Person(Locale("en"))
     return person
 
 
 class Automator:  # pylint: disable=too-many-instance-attributes
-    """
-    Handles the automation of browser interactions.
+    """Handles the automation of browser interactions.
 
-    This class manages the connection to the browser via WebSocket and provides methods to perform actions.
+    This class manages the connection to the browser via WebSocket and provides methods
+    to perform actions.
     """
 
     ws_endpoint: WsUrlModel
@@ -98,9 +102,7 @@ class Automator:  # pylint: disable=too-many-instance-attributes
     browser_info: Dict
 
     def __init__(self, remote_debugging_port: int, screenshot_dir_path: str, timeout: int = 60000) -> None:
-        """
-        Initialize the Automator class.
-        """
+        """Initialize the Automator class."""
         if not os.path.exists(screenshot_dir_path):
             raise ValueError(f"Screenshot directory path {screenshot_dir_path} does not exist.")
 
@@ -118,16 +120,18 @@ class Automator:  # pylint: disable=too-many-instance-attributes
         os.makedirs(self.screenshot_dir_path_temp)
 
     def get_ws_endpoint(self) -> str:
-        """
-        Get the WebSocket endpoint URL.
-        :return: The WebSocket endpoint URL as a string.
+        """Get the WebSocket endpoint URL.
+
+        Returns:
+            The WebSocket endpoint URL as a string.
         """
         return self.ws_endpoint.ws_url.unicode_string()
 
     def connect(self) -> None:
-        """
-        Connect to the browser via the WebSocket protocol.
-        :return: None
+        """Connect to the browser via the WebSocket protocol.
+
+        Returns:
+            None
         """
         ws_endpoint_url = _url_to_ws_endpoint(f"http://localhost:{self.remote_debugging_port}")
         self.ws_endpoint = WsUrlModel(ws_url=WebsocketUrl(ws_endpoint_url))
@@ -147,9 +151,10 @@ class Automator:  # pylint: disable=too-many-instance-attributes
         return self
 
     async def _clean_up(self) -> None:
-        """
-        Clean up the browser.
-        :return: None
+        """Clean up the browser.
+
+        Returns:
+            None
         """
         await self.context.clear_cookies()
         await self.page.goto("https://www.google.com/?hl=en", wait_until="networkidle", timeout=self.timeout)
@@ -166,10 +171,13 @@ class Automator:  # pylint: disable=too-many-instance-attributes
         # await self.page.goto("https://www.ip2location.com/demo/", wait_until="networkidle", timeout=self.timeout)
 
     async def _save_screenshot(self, screenshot_name: str) -> None:
-        """
-        Save a screenshot of the current page.
-        :param screenshot_name: The name of the screenshot.
-        :return: None
+        """Save a screenshot of the current page.
+
+        Args:
+            screenshot_name: The name of the screenshot.
+
+        Returns:
+            None
         """
         filename = f"{screenshot_name}.png"
         await self.page.screenshot(path=os.path.join(self.screenshot_dir_path, filename), full_page=True)
@@ -180,10 +188,10 @@ class Automator:  # pylint: disable=too-many-instance-attributes
         return filename
 
     async def _grab_canvas_outlook(self) -> bool:  # pylint: disable=too-many-statements
-        """
-        Automates the process of creating a new Outlook account.
+        """Automates the process of creating a new Outlook account.
 
-        :return: True if the Outlook account creation process is completed successfully, False otherwise.
+        Returns:
+            True if the Outlook account creation process is completed successfully, False otherwise.
         """
         logger.info("Initiating Outlook account creation automation...")
 
@@ -295,16 +303,19 @@ class Automator:  # pylint: disable=too-many-instance-attributes
         return False
 
     async def grab_canvas(self) -> bool:
-        """
-        Orchestrates the process of capturing canvas fingerprint data from multiple websites.
+        """Orchestrates the process of capturing canvas fingerprint data from multiple
+        websites.
 
         This method sequentially triggers the canvas data capture for each website, ensures
         that the environment is clean before each capture, and stores the results.
 
-        :return: True if the canvas was successfully captured for all targeted websites,
-                 False if one or more captures failed.
-        :raises BadProxyIPError: Raised when a captcha challenge is detected, suggesting the possibility of a bad or
-                flagged proxy IP, which could prevent successful account creation.
+        Returns:
+            True if the canvas was successfully captured for all targeted websites, False if one or more captures
+            failed.
+
+        Raises:
+            BadProxyIPError: Raised when a captcha challenge is detected, suggesting the possibility of a bad or flagged
+                proxy IP, which could prevent successful account creation.
         """
 
         # Ensure all prerequisites for canvas capture are met.

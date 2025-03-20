@@ -13,9 +13,10 @@ CANVAS_INSPECTOR_CMD_PATH = os.path.join("appsremote", "CanvasInspector3")
 
 
 def find_proc() -> int:
-    """
-    Find the process of the Canvas Inspector application.
-    :returns: The remote debugging port number of the Canvas Inspector application.
+    """Find the process of the Canvas Inspector application.
+
+    Returns:
+        The remote debugging port number of the Canvas Inspector application.
     """
 
     # Iterate through all running processes

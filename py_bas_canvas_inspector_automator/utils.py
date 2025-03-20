@@ -1,14 +1,12 @@
-"""
-Return a logger named based on the caller's full module path.
-"""
+"""Return a logger named based on the caller's full module path."""
 
 import inspect
 import logging
 
 
 def get_logger() -> logging.Logger:
-    """
-    Return a logger named based on the caller's full module path.
+    """Return a logger named based on the caller's full module path.
+
     Format: "[<full-module-path>]"
     """
 

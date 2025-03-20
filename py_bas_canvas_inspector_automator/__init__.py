@@ -1,4 +1,4 @@
-"""Package for automating the Canvas Inspector"""
+"""Package for automating the Canvas Inspector."""
 
 from .automator.automator import Automator
 from .helpers import find_proc

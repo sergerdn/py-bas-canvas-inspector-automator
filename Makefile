@@ -10,6 +10,10 @@ poetry_upgrade:
 	poetry show --outdated
 
 lint_fix:
+	docconvert --in-place --config docconvert_config.json --output google py_bas_canvas_inspector_automator/
+	docconvert --in-place --config docconvert_config.json --output google cmd_worker.py
+	docformatter --config pyproject.toml --black --in-place --recursive py_bas_canvas_inspector_automator/ || echo ""
+	docformatter --config pyproject.toml --black --in-place --recursive cmd_worker.py || echo ""
 	poetry run black cmd_worker.py py_bas_canvas_inspector_automator/ tests/
 	poetry run isort cmd_worker.py py_bas_canvas_inspector_automator/ tests/
 

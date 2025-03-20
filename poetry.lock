@@ -299,6 +299,42 @@ graph = ["objgraph (>=1.7.2)"]
 profile = ["gprof2dot (>=2022.7.29)"]
 
 [[package]]
+name = "docconvert"
+version = "2.2.0"
+description = "Convert and conform package docstrings to a new style"
+optional = false
+python-versions = ">=3.6"
+files = [
+    {file = "docconvert-2.2.0-py2.py3-none-any.whl", hash = "sha256:59ca5bd7e59d830d43cbe9279eb87a048041e9c17a88e12df2516ac6508eee24"},
+    {file = "docconvert-2.2.0.tar.gz", hash = "sha256:e3a32e49de2e6a43536e9d2a17d1678c83e83b15126d6f10c097fdf0dfcf6580"},
+]
+
+[package.dependencies]
+six = "*"
+
+[package.extras]
+dev = ["black", "pre-commit", "tox"]
+doc = ["sphinx", "sphinx-rtd-theme"]
+
+[[package]]
+name = "docformatter"
+version = "1.7.5"
+description = "Formats docstrings to follow PEP 257"
+optional = false
+python-versions = ">=3.7,<4.0"
+files = [
+    {file = "docformatter-1.7.5-py3-none-any.whl", hash = "sha256:a24f5545ed1f30af00d106f5d85dc2fce4959295687c24c8f39f5263afaf9186"},
+    {file = "docformatter-1.7.5.tar.gz", hash = "sha256:ffed3da0daffa2e77f80ccba4f0e50bfa2755e1c10e130102571c890a61b246e"},
+]
+
+[package.dependencies]
+charset_normalizer = ">=3.0.0,<4.0.0"
+untokenize = ">=0.1.1,<0.2.0"
+
+[package.extras]
+tomli = ["tomli (>=2.0.0,<3.0.0)"]
+
+[[package]]
 name = "filelock"
 version = "3.18.0"
 description = "A platform independent file lock."
@@ -1471,6 +1507,16 @@ files = [
 ]
 
 [[package]]
+name = "untokenize"
+version = "0.1.1"
+description = "Transforms tokens into original source code (while preserving whitespace)."
+optional = false
+python-versions = "*"
+files = [
+    {file = "untokenize-0.1.1.tar.gz", hash = "sha256:3865dbbbb8efb4bb5eaa72f1be7f3e0be00ea8b7f125c69cbd1f5fda926f37a2"},
+]
+
+[[package]]
 name = "urllib3"
 version = "2.3.0"
 description = "HTTP library with thread-safe connection pooling, file post, and more."
@@ -1501,4 +1547,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "51af40bfa186e2c677a7c7de6b412be11284494aa18b322afc21c877abfe417c"
+content-hash = "2e6af0c0a5d28581ae387c087c1de0d4f21e76747a5313ef3a13df106b2b0ba8"

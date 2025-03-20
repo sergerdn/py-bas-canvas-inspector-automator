@@ -7,10 +7,13 @@ from PIL import Image, ImageEnhance, ImageFilter
 
 
 def _set_tesseract_installed_path() -> None:
-    """
-    Set the path to the Tesseract-OCR installation.
-    :return: None
-    :raises FileNotFoundError: If Tesseract-OCR is not found.
+    """Set the path to the Tesseract-OCR installation.
+
+    Returns:
+        None
+
+    Raises:
+        FileNotFoundError: If Tesseract-OCR is not found.
     """
 
     paths = ["D:\\Program Files\\Tesseract-OCR", "C:\\Program Files\\Tesseract-OCR"]
@@ -29,10 +32,13 @@ _set_tesseract_installed_path()
 
 
 def _preprocess_image(image_path: str) -> Image.Image:
-    """
-    Preprocess the image for OCR.
-    :param image_path: The path to the image.
-    :return: A preprocessed image.
+    """Preprocess the image for OCR.
+
+    Args:
+        image_path: The path to the image.
+
+    Returns:
+        A preprocessed image.
     """
 
     # Open the image
@@ -57,9 +63,7 @@ def _preprocess_image(image_path: str) -> Image.Image:
 
 
 def ocr_image(image_path: str, normalize_text: bool = False) -> str:
-    """
-    Perform OCR on the image.
-    """
+    """Perform OCR on the image."""
 
     # Preprocess the image for better OCR results
     preprocessed_image = _preprocess_image(image_path)
