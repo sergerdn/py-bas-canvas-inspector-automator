@@ -27,7 +27,7 @@ The automator is purpose-built to capture canvas fingerprint data during the acc
 The platforms listed below have either been implemented or are targeted for future implementation:
 
 - [x] Outlook(https://outlook.live.com/)
-- [ ] hCaptcha Enterprise(https://www.hcaptcha.com/#enterprise-features/)
+- [x] hCaptcha Enterprise(https://www.hcaptcha.com/#enterprise-features/)
 - [ ] Twitter(https://twitter.com/)
 - [ ] TikTok(https://www.tiktok.com/)
 

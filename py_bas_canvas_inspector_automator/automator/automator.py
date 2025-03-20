@@ -302,6 +302,29 @@ class Automator:  # pylint: disable=too-many-instance-attributes
         logger.warning("Outlook account creation failed.")
         return False
 
+    async def _grab_hcaptcha(self) -> bool:  # pylint: disable=too-many-statements
+        """Automates the process of hCaptcha.
+
+        Returns:
+            True if the hCaptcha process is completed successfully, False otherwise.
+        """
+        logger.info("Initiating hCaptcha automation...")
+        # Discord
+        url = "https://accounts.hcaptcha.com/demo?hl=en&sitekey=a9b5fb07-92ff-493f-86fe-352a2803b3df&host=discord.com"
+
+        # Navigate to the Outlook account creation page
+        logger.info("Navigating to hCaptcha main page...")
+        try:
+            await self.page.goto(url, wait_until="networkidle", timeout=self.timeout)
+        except PlaywrightTimeoutError as exc:
+            logger.warning("Timeout error encountered: %s", exc)
+
+        await self.page.evaluate("window.hcaptcha.execute()")
+        await asyncio.sleep(30)
+
+        logger.info("hCaptcha automation done.")
+        return True
+
     async def grab_canvas(self) -> bool:
         """Orchestrates the process of capturing canvas fingerprint data from multiple
         websites.
@@ -323,7 +346,13 @@ class Automator:  # pylint: disable=too-many-instance-attributes
         # Initialize a list to store the success status for each website.
         capture_results = []
 
-        # Clean the environment and capture canvas for Outlook.
+        # Clean the environment
+        await self._clean_up()
+        gmail_capture_success = await self._grab_hcaptcha()
+        capture_results.append(gmail_capture_success)
+        await self._save_screenshot("hcaptcha")
+
+        # Clean the environment
         await self._clean_up()
         outlook_capture_success = await self._grab_canvas_outlook()
         capture_results.append(outlook_capture_success)
