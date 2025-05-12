@@ -20,7 +20,7 @@ pytesseract = "0.3.13"
 [tool.poetry.group.dev.dependencies]
 pytest-playwright = "0.7.0"
 pytest = "8.3.5"
-commitizen = "4.4.1"
+commitizen = "4.7.0"
 pywinauto = "0.6.9"
 black = "25.1.0"
 mypy = "1.15.0"
