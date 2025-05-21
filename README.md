@@ -148,6 +148,15 @@ script. This precaution helps prevent any inconsistencies or errors during the a
 
 ## ⚙️ Configuration
 
+To configure the websites the automator will visit, create a file named `config.yaml` in the root directory of the
+project. **This file should be excluded from git.**
+
+1. Copy the provided example configuration `config_example.yaml` to `config.yaml` in the root directory of the project.
+2. Modify `config.yaml` to include the websites you want the automator to visit.
+3. Ensure `config.yaml` is added to your `.gitignore` file to prevent it from being committed.
+
+Here's an example configuration (`config_example.yaml`):
+
 ### Automation Configuration
 
 The automation process can be customized by modifying the following:

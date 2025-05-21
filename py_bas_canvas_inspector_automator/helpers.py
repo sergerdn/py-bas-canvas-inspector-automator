@@ -42,7 +42,7 @@ def find_proc() -> int:
             if found_proc:
                 for child in proc.children(recursive=False):
                     # Check if the child process is the browser process
-                    if child.name() != BROWSER_PROC_NAME:
+                    if child.name().lower() != BROWSER_PROC_NAME.lower():
                         continue
                     cmd_line = child.cmdline()
 

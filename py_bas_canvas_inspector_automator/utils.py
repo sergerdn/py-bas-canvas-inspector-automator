@@ -1,7 +1,27 @@
 """Return a logger named based on the caller's full module path."""
 
 import inspect
+import json
 import logging
+from typing import Any, Dict
+
+
+class ConfigFileNotFoundError(Exception):
+    """Exception raised when the config file is not found."""
+
+
+def get_config(config_path: str) -> Dict[str, Any]:
+    """Load a configuration file.
+
+    Args:
+        config_path: Path to the configuration file.
+
+    Returns:
+        Dictionary with configuration data.
+    """
+    with open(config_path, "r", encoding="utf-8") as config_file:
+        config_data: Dict[str, Any] = json.load(config_file)
+        return config_data
 
 
 def get_logger() -> logging.Logger:
