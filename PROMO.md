@@ -51,14 +51,13 @@ The automator is purpose-built to capture canvas fingerprint data during the acc
 
 The platforms listed below have either been implemented or are targeted for future implementation:
 
-- [x] Google: https://www.google.com/
-- [x] Vinted: https://www.vinted.com/
-- [x] Outlook: https://outlook.live.com/
-- [ ] Twitter: https://twitter.com/
-- [ ] Reddit: https://www.reddit.com/
-- [ ] LinkedIn: https://www.linkedin.com/
-- [ ] Twitch: https://www.twitch.tv/
-- [ ] TikTok: https://www.tiktok.com/
+- [x] [Outlook](https://outlook.live.com/)
+- [x] [hCaptcha Enterprise](https://www.hcaptcha.com/#enterprise-features/)
+- [ ] [Google](https://www.google.com/)
+- [ ] [Twitter](https://twitter.com/)
+- [ ] [Reddit](https://www.reddit.com/)
+- [ ] [LinkedIn](https://www.linkedin.com/)
+- [ ] [TikTok](https://www.tiktok.com/)
 
 🛠 **Requirements**:
 
