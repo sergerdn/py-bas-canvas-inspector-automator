@@ -75,5 +75,5 @@ The platforms listed below have either been implemented or are targeted for futu
 3. Launch the _CanvasInspector_ application and tailor the settings to fit your requirements.
 4. Execute the _cmd_worker.py_ script to automate the canvas data capture process.
 
-**Note**:  For detailed instructions, technical support, and further discussion, please refer to
+**Note**: For detailed instructions, technical support, and further discussion, please refer to
 the [GitHub](https://github.com/sergerdn/py-bas-canvas-inspector-automator)
