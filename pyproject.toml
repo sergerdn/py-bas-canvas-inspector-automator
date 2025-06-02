@@ -13,7 +13,7 @@ pydantic = "2.11.4"
 python-dotenv = "1.1.0"
 filelock = "3.18.0"
 psutil = "7.0.0"
-types-psutil = "7.0.0.20250516"
+types-psutil = "7.0.0.20250601"
 mimesis = "18.0.0"
 pytesseract = "0.3.13"
 
