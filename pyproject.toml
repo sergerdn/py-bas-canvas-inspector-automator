@@ -10,7 +10,7 @@ python = "^3.11"
 playwright = { extras = ["chromium"], version = "1.52.0" }
 httpx = { extras = ["socks"], version = "0.28.1" }
 pydantic = "2.11.4"
-python-dotenv = "1.1.0"
+python-dotenv = "1.1.1"
 filelock = "3.18.0"
 psutil = "7.0.0"
 types-psutil = "7.0.0.20250516"
