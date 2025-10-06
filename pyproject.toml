@@ -9,7 +9,7 @@ readme = "README.md"
 python = "^3.11"
 playwright = { extras = ["chromium"], version = "1.52.0" }
 httpx = { extras = ["socks"], version = "0.28.1" }
-pydantic = "2.11.4"
+pydantic = "2.11.10"
 python-dotenv = "1.1.0"
 filelock = "3.18.0"
 psutil = "7.0.0"
